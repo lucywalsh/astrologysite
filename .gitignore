@@ -5,4 +5,8 @@ node_modules/
 venv
 __pycache__
 
+#libraries
+yarn-error.log
+.geonames_cache
+
 .DS_Store
