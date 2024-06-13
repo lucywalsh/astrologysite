@@ -13,6 +13,17 @@
   padding: 2vh;
 }
 
+.warning {
+  font-size: 18px;
+  font-family: 'Ysabeau BoldItalic';
+  color: #fc2f92;
+  padding: 10px;
+}
+
+.invalid-field {
+  border-color: #fc2f92 !important;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -30,4 +41,9 @@ code {
 @font-face {
   font-family: 'Ysabeau Light';
   src: local('Ysabeau Light'), url('./fonts/Ysabeau_Office/static/YsabeauOffice-Light.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Ysabeau BoldItalic';
+  src: local('Ysabeau BoldItalic'), url('./fonts/Ysabeau_Office/static/YsabeauOffice-BoldItalic.ttf') format('truetype');
 }
