@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import './App.css';
+import Container from 'react-bootstrap/Container';
+import BirthDetailsForm from './components/BirthDetailsForm';
 
 function App() {
   const [message, setMessage] = useState("");
@@ -11,11 +12,14 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
-      <header className="App-header">
-        The message is {message}
+    <Container fluid className="App">
+      {/* move into own container if it gets more complex */}
+      <header>  
+        {/* <h1>The message is {message}</h1> */}
+        <h1 className="title">ASTERIA</h1>
       </header>
-    </div>
+      <BirthDetailsForm></BirthDetailsForm>
+    </Container>
   );
 }
 
