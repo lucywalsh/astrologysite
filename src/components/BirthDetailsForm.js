@@ -7,13 +7,16 @@ import {createFilter} from 'react-select';
 import AsyncSelect from 'react-select/async';
 
 export default function BirthDetailsForm(){
-
+  const [dateOfBirth, setDateOfBirth] = useState('');
+  const [timeOfBirth, setTimeOfBirth] = useState('');
+  const [placeOfBirth, setPlaceOfBirth] = useState('');
 
   const onSubmit = (event) => {
     event.preventDefault();
-    console.log(event.target[0].value);
-    console.log(event.target[1].value);
-    console.log(event.target[2]);
+    console.log(dateOfBirth)
+    console.log(timeOfBirth)
+    console.log(placeOfBirth)
+    console.log('do something with state? trigger next event?');
   };
 
   const cities_and_countries = require('../data/cities_and_countries.json')
@@ -41,13 +44,23 @@ export default function BirthDetailsForm(){
             <Col>
               <Form.Group controlId="formDateOfBirth">
                 <Form.Label>When were you born?</Form.Label>
-                <Form.Control type="date" placeholder="Date of Birth" />
+                <Form.Control 
+                type="date" 
+                placeholder="Date of Birth"
+                value={dateOfBirth}
+                onChange={e => setDateOfBirth(e.target.value)}
+                />
               </Form.Group>
             </Col>
             <Col>
               <Form.Group controlId="formTimeOfBirth">
                 <Form.Label>What time where you born?</Form.Label>
-                <Form.Control type="time" placeholder="Time of Birth" />
+                <Form.Control 
+                type="time" 
+                placeholder="Time of Birth"
+                value={timeOfBirth}
+                onChange={e => setTimeOfBirth(e.target.value)} 
+                />
               </Form.Group>
             </Col>
             <Col>
@@ -62,6 +75,8 @@ export default function BirthDetailsForm(){
                 getOptionValue={(option) => `["lat": "${option['lat']}", "lng": "${option['lng']}]`}
                 getOptionLabel={(option) => `${option['city_and_country']}`}
                 filterOption={createFilter({ ignoreAccents: false })}
+                value={placeOfBirth}
+                onChange={value => setPlaceOfBirth(value)}
               />
               </Form.Group>
             </Col>
