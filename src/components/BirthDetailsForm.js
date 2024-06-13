@@ -15,9 +15,6 @@ export default function BirthDetailsForm(){
 
   const onSubmit = (event) => {
     event.preventDefault();
-    console.log(dateOfBirth);
-    console.log(timeOfBirth);
-    console.log(placeOfBirth);
 
     const errors={};
     if(dateOfBirth==='' || dateOfBirth===undefined){
