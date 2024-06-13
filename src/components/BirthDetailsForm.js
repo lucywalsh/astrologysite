@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import InputField from './InputField.js';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
@@ -7,16 +8,33 @@ import {createFilter} from 'react-select';
 import AsyncSelect from 'react-select/async';
 
 export default function BirthDetailsForm(){
+  const [formErrors, setFormErrors] = useState('');
   const [dateOfBirth, setDateOfBirth] = useState('');
   const [timeOfBirth, setTimeOfBirth] = useState('');
   const [placeOfBirth, setPlaceOfBirth] = useState('');
 
   const onSubmit = (event) => {
     event.preventDefault();
-    console.log(dateOfBirth)
-    console.log(timeOfBirth)
-    console.log(placeOfBirth)
-    console.log('do something with state? trigger next event?');
+    console.log(dateOfBirth);
+    console.log(timeOfBirth);
+    console.log(placeOfBirth);
+
+    const errors={};
+    if(dateOfBirth==='' || dateOfBirth===undefined){
+      errors.dateOfBirth = "Please enter your date of birth";
+    }
+    if(timeOfBirth==='' || timeOfBirth===undefined){
+      errors.timeOfBirth = "Please enter when you were born";
+    }
+    if(placeOfBirth==='' || placeOfBirth===undefined || placeOfBirth===null){
+      errors.placeOfBirth = "Please enter where you were born";
+    }
+    setFormErrors(errors);
+
+    if (Object.keys(errors).length > 0){
+      return
+    }
+    // todo: generate birth chart
   };
 
   const cities_and_countries = require('../data/cities_and_countries.json')
@@ -42,43 +60,58 @@ export default function BirthDetailsForm(){
         <Form onSubmit={onSubmit}>
           <Row>
             <Col>
-              <Form.Group controlId="formDateOfBirth">
-                <Form.Label>When were you born?</Form.Label>
-                <Form.Control 
-                type="date" 
-                placeholder="Date of Birth"
-                value={dateOfBirth}
-                onChange={e => setDateOfBirth(e.target.value)}
-                />
-              </Form.Group>
-            </Col>
-            <Col>
-              <Form.Group controlId="formTimeOfBirth">
-                <Form.Label>What time where you born?</Form.Label>
-                <Form.Control 
-                type="time" 
-                placeholder="Time of Birth"
-                value={timeOfBirth}
-                onChange={e => setTimeOfBirth(e.target.value)} 
-                />
-              </Form.Group>
-            </Col>
-            <Col>
-              <Form.Group controlId="formPlaceOfBirth">
-                <Form.Label>Where were you born?</Form.Label>
-              <AsyncSelect
-                placeholder='Start typing...'
-                isClearable
-                isSearchable
-                name="place"
-                loadOptions={PromiseOptions}
-                getOptionValue={(option) => `["lat": "${option['lat']}", "lng": "${option['lng']}]`}
-                getOptionLabel={(option) => `${option['city_and_country']}`}
-                filterOption={createFilter({ ignoreAccents: false })}
-                value={placeOfBirth}
-                onChange={value => setPlaceOfBirth(value)}
+              <InputField 
+                name="formDateOfBirth" 
+                label="When were you born?" 
+                error={formErrors.dateOfBirth}
+                field={
+                  <Form.Control 
+                    className={formErrors.dateOfBirth && "invalid-field"}
+                    type="date" 
+                    placeholder="Date of Birth"
+                    value={dateOfBirth}
+                    onChange={e => setDateOfBirth(e.target.value)}
+                    />
+                  }
               />
-              </Form.Group>
+            </Col>
+            <Col>
+              <InputField
+                name="formTimeOfBirth"
+                label="What time were you born?"
+                error={formErrors.timeOfBirth}
+                field={
+                  <Form.Control 
+                    className={formErrors.timeOfBirth && "invalid-field"}
+                    type="time" 
+                    placeholder="Time of Birth"
+                    value={timeOfBirth}
+                    onChange={e => setTimeOfBirth(e.target.value)} 
+                />
+                }
+              />
+            </Col>
+            <Col>
+              <InputField
+                name="formPlaceOfBirth"
+                label="What city were you born in?"
+                error={formErrors.placeOfBirth}
+                field={
+                  <AsyncSelect
+                    placeholder='Start typing...'
+                    isClearable
+                    isSearchable
+                    name="place"
+                    loadOptions={PromiseOptions}
+                    getOptionValue={(option) => `["lat": "${option['lat']}", "lng": "${option['lng']}]`}
+                    getOptionLabel={(option) => `${option['city_and_country']}`}
+                    filterOption={createFilter({ ignoreAccents: false })}
+                    value={placeOfBirth}
+                    onChange={value => setPlaceOfBirth(value)}
+                    styles={{control: (baseStyles, state) => ({...baseStyles, border: !formErrors.placeOfBirth && "0px", borderColor: formErrors.placeOfBirth && "#fc2f92"})}}
+                  />
+                }
+                />
             </Col>
           </Row>
           <Row>
