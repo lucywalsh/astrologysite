@@ -10,12 +10,15 @@ def createNewCity(city_obj: dict, country_name):
     new_city['country'] = country_name
     new_city['country_code'] = city_obj['country']
     city = strip_accents(city_obj['name'])
-    new_city['city'] = city
-    new_city['city_and_country'] = city + ", " + country_name
+    if(country_name == "United States"):
+        new_city['city'] = city + ", " + city_obj['admin1']
+    else:
+        new_city['city'] = city
+    new_city['city_and_country'] = new_city['city'] + ", " + country_name
     new_city['lat'] = city_obj['lat']
     new_city['lng'] = city_obj['lng']
     return new_city
-
+    
 def find_country(countries, country_code):
     for country in countries:
         if country['code'] == country_code:
