@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import InputField from './InputField.js';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -7,7 +7,7 @@ import Button from 'react-bootstrap/Button';
 import {createFilter} from 'react-select';
 import AsyncSelect from 'react-select/async';
 
-export default function BirthDetailsForm(){
+export default function BirthDetailsForm({onFormSubmit}){
   const [formErrors, setFormErrors] = useState('');
   const [dateOfBirth, setDateOfBirth] = useState('');
   const [timeOfBirth, setTimeOfBirth] = useState('');
@@ -31,7 +31,12 @@ export default function BirthDetailsForm(){
     if (Object.keys(errors).length > 0){
       return
     }
-    // todo: generate birth chart
+    console.log(placeOfBirth);
+    // send API call to backend - currently using a fake return
+    let results = {'Jupiter': 'Pisces', 'Mars': 'Gemini', 'Mercury': 'Gemini', 'Moon': 'Virgo', 'Neptune': 'Aquarius', 'Pluto': 'Sagittarius', 'Rising': 'Cancer', 'Saturn': 'Aries', 'Sun': 'Gemini', 'Uranus': 'Aquarius', 'Venus': 'Taurus'}
+    // return results to App.js via state
+    onFormSubmit(results);
+
   };
 
   const cities_and_countries = require('../data/cities_and_countries.json')
@@ -55,7 +60,7 @@ export default function BirthDetailsForm(){
 
     return(
         <Form onSubmit={onSubmit}>
-          <Row>
+          <Row className="input-form justify-content-md-center">
             <Col>
               <InputField 
                 name="formDateOfBirth" 

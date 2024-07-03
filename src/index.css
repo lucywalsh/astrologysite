@@ -6,11 +6,34 @@
   flex-direction: column; */
 }
 
+.input-form{
+  max-width:75%;
+  margin: 0 auto;
+}
+
+.birth-chart-container{
+  padding-top:5vh;
+  max-width:50%;
+  margin:0 auto;
+}
+
+.big-three{
+  border: 1px solid purple;
+  padding:1vh;
+}
+
 .title {
   font-size: 10vh;
   font-family: 'Ysabeau Light';
   color: #5d066b;
   padding: 2vh;
+}
+
+.chart-table{
+  border: 1px solid purple;
+  background-color: transparent;
+  max-width: 40%;
+  margin: 0 auto;
 }
 
 .warning {
